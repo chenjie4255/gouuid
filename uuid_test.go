@@ -7,6 +7,7 @@ package uuid
 
 import (
 	"regexp"
+	"strings"
 	"testing"
 )
 
@@ -89,6 +90,10 @@ func TestNewV4(t *testing.T) {
 	re := regexp.MustCompile(format)
 	if !re.MatchString(u.String()) {
 		t.Errorf("Expected string representation to be valid, given %s", u.String())
+	}
+
+	if strings.Index(u.NoHyphenString(), "-") != -1 {
+		t.Errorf("NoHyphenString should not inculde char(-), given %s", u.NoHyphenString())
 	}
 }
 
